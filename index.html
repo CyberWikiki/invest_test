@@ -3,81 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동물 타로 선택</title>
+    <title>수사적성테스트</title>
     <style>
         body {
             text-align: center;
             font-family: Arial, sans-serif;
-            padding: 20px;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
-        img {
-            width: 100%;
-            max-width: 600px;
-            height: auto;
+        h1 {
+            color: #444;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* 카드 간격 */
+            flex-wrap: wrap; /* 화면 크기에 따라 카드 줄바꿈 */
+        }
+        .card {
+            width: 130px; /* 카드 크기 */
+            height: 295px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
         }
         #result {
             margin-top: 20px;
             padding: 20px;
             border: 2px solid #ccc;
             border-radius: 10px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
+            display: none; /* 결과 영역을 초기에는 숨김 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            max-width: 600px;
+            width: 100%;
         }
         h2 {
             color: #333;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #666;
+            font-size: 1.2em;
+            line-height: 1.6em;
+            margin: 10px 0;
+        }
+        #resultImage {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #backButton {
+            display: none; /* 뒤로가기 버튼 초기에는 숨김 */
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        #backButton:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
 
-    <h1>당신의 동물 타로를 선택하세요</h1>
-    <img src="타로이미지.png" usemap="#animalmap" alt="Animal Tarot">
-
-    <map name="animalmap">
-        <area shape="rect" coords="0,0,256,512" alt="사자" onclick="showResult('lion')">
-        <area shape="rect" coords="256,0,512,512" alt="올빼미" onclick="showResult('owl')">
-        <area shape="rect" coords="512,0,768,512" alt="문어" onclick="showResult('octopus')">
-        <area shape="rect" coords="768,0,1024,512" alt="독수리" onclick="showResult('eagle')">
-        <area shape="rect" coords="1024,0,1280,512" alt="돌고래" onclick="showResult('dolphin')">
-    </map>
+    <h1>수사적성 테스트</h1>
+    <div class="card-container">
+        <div class="card" style="background-image: url('lion_t.png');" onclick="showResult('lion')"></div>
+        <div class="card" style="background-image: url('owl_t.png');" onclick="showResult('owl')"></div>
+        <div class="card" style="background-image: url('octo_t.png');" onclick="showResult('octopus')"></div>
+        <div class="card" style="background-image: url('eagle_t.png');" onclick="showResult('eagle')"></div>
+        <div class="card" style="background-image: url('dol_t.png');" onclick="showResult('dolphin')"></div>
+    </div>
 
     <div id="result">
-        <h2>동물을 선택하세요!</h2>
-        <p>각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.</p>
+        <img id="resultImage" src="" alt="">
+        <h2 id="resultTitle">동물을 선택하세요!</h2>
+        <p id="resultDescription">각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.</p>
+        <button id="backButton" onclick="goBack()">뒤로가기</button>
     </div>
 
     <script>
         function showResult(animal) {
+            let imagePath = '';
             let title = '';
             let description = '';
-            
+
             switch (animal) {
                 case 'lion':
-                    title = '사자 - 결단력';
-                    description = '사자는 강력하고 신속한 결단력을 가진 동물입니다. 위협적인 상황에서도 즉시 결정을 내리고 행동에 옮깁니다.';
+                    imagePath = 'lion.png';
+                    title = '사자 - 강력 / 형사<br>(결단력)';
+                    description = '사자는 강력하고 신속한 결단력을 가진 동물입니다. 긴급한 상황에서 신속하게 결정을 내리고 행동에 옮기는 당신은 <b>강력 / 형사</b>가 어울립니다.';
                     break;
                 case 'owl':
-                    title = '올빼미 - 객관성';
-                    description = '올빼미는 상황을 냉정하게 관찰하며, 객관적인 판단을 내리는 능력을 가진 동물입니다.';
+                    imagePath = 'owl.png';
+                    title = '올빼미 - 경제범죄수사<br>(객관성)';
+                    description = '올빼미는 어둠 속에서도 상황을 냉정하고 객관적으로 관찰하며, 정확하게 사냥을하는 동물입니다. 당신은 객관적으로 사건을 바라보고 복잡한 이해관계에서도 본질을 찾아내는 <b>경제범죄수사관</b>이 적격입니다!';
                     break;
                 case 'octopus':
-                    title = '문어 - 적응력';
-                    description = '문어는 변화하는 환경에 빠르게 적응하고, 다양한 기술적 문제를 해결할 수 있는 능력을 지닌 동물입니다.';
+                    imagePath = 'octo.png';
+                    title = '문어 - 사이버범죄수사<br>(적응력)';
+                    description = '문어는 변화하는 환경에 빠르게 적응하고, 유연한 신체를 통해 문제를 해결하는 동물로, 빠르게 변화하는 기술 환경에 적응하고, 새로운 유형의 사건에도 유연하게 대처할 수 있는 당신은 미래의 <b>사이버범죄수사관</b>입니다.';
                     break;
                 case 'eagle':
-                    title = '독수리 - 분석력';
-                    description = '독수리는 뛰어난 시력과 관찰력으로 넓은 범위를 분석하고, 세밀한 상황을 정확하게 파악하는 능력을 가진 동물입니다.';
+                    imagePath = 'eagle.png';
+                    title = '독수리 - 교통사고조사<br>(분석력)';
+                    description = '독수리는 뛰어난 시력과 관찰력으로 넓은 범위를 분석하고, 세밀한 상황을 정확하게 파악하는 능력을 가졌으므로, 사고 현장을 면밀히 분석하고, 사건의 원인을 정확히 파악할 수 있는 <b>교통사고조사관</b>에 어울리는 성향입니다.';
                     break;
                 case 'dolphin':
-                    title = '돌고래 - 공감력';
-                    description = '돌고래는 높은 감성으로 다른 동물의 감정을 이해하고 공감하는 능력을 가진 동물입니다.';
+                    imagePath = 'dol.png';
+                    title = '돌고래 - 여성청소년수사<br>(공감력)';
+                    description = '돌고래는 높은 감성으로 다른 동물의 감정을 이해하고 공감하는 능력을 가진 동물로, 당신은 피해자의 감정과 상황을 깊이 이해하고, 그에 맞게 신중하고 배려 깊은 접근을 할 수 있는 <b>여성청소년수사관</b>이 어울립니다.';
                     break;
                 default:
                     title = '동물을 선택하세요!';
                     description = '각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.';
+                    imagePath = ''; // 기본 이미지 없음
                     break;
             }
 
-            document.getElementById('result').innerHTML = `<h2>${title}</h2><p>${description}</p>`;
+            // 카드 이미지를 숨깁니다.
+            document.querySelector('.card-container').style.display = 'none';
+
+            // 결과를 표시합니다.
+            document.getElementById('resultTitle').innerHTML = title;
+            document.getElementById('resultDescription').innerHTML = description;
+            document.getElementById('resultImage').src = imagePath;
+            document.getElementById('result').style.display = 'block';
+
+            // "뒤로가기" 버튼을 표시합니다.
+            document.getElementById('backButton').style.display = 'block';
+        }
+
+        function goBack() {
+            // 카드 이미지를 다시 보이게 합니다.
+            document.querySelector('.card-container').style.display = 'flex';
+
+            // 결과 영역을 숨깁니다.
+            document.getElementById('result').style.display = 'none';
+
+            // "뒤로가기" 버튼을 숨깁니다.
+            document.getElementById('backButton').style.display = 'none';
         }
     </script>
 
