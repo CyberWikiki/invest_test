@@ -20,17 +20,18 @@
         h1 {
             color: #444;
             margin-bottom: 20px;
-            font-size: 2.5em;
+            font-size: 2em;
         }
         .card-container {
             display: flex;
             justify-content: center;
             gap: 10px; /* 카드 간격 */
             flex-wrap: wrap; /* 화면 크기에 따라 카드 줄바꿈 */
+            padding: 10px;
         }
         .card {
-            width: 130px; /* 카드 크기 */
-            height: 295px;
+            width: 100px; /* 카드 크기 */
+            height: 170px;
             background-size: cover;
             background-position: center;
             border-radius: 10px;
@@ -49,19 +50,19 @@
             background-color: #ffffff;
             display: none; /* 결과 영역을 초기에는 숨김 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            max-width: 600px;
+            max-width: 90%; /* 최대 너비를 90%로 제한 */
             width: 100%;
+            position: relative;
         }
         h2 {
             color: #333;
-            font-size: 1.8em;
+            font-size: 1.6em;
             margin-bottom: 10px;
         }
         p {
             color: #666;
-            font-size: 1.2em;
-            line-height: 1.6em;
+            font-size: 1.1em;
+            line-height: 1.5em;
             margin: 10px 0;
         }
         #resultImage {
@@ -74,9 +75,7 @@
         }
         #backButton {
             display: none; /* 뒤로가기 버튼 초기에는 숨김 */
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
+            margin-top: 10px; /* 결과 영역과 겹치지 않도록 여백 설정 */
             padding: 10px 20px;
             font-size: 16px;
             background-color: #007BFF;
@@ -108,8 +107,9 @@
         <img id="resultImage" src="" alt="">
         <h2 id="resultTitle">동물을 선택하세요!</h2>
         <p id="resultDescription">각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.</p>
-        <button id="backButton" onclick="goBack()">뒤로가기</button>
     </div>
+
+    <button id="backButton" onclick="goBack()">뒤로가기</button>
 
     <script>
         function showResult(animal) {
