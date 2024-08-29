@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동물 타로 선택</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>당신의 동물 타로를 선택하세요</h1>
+    <img src="타로이미지.png" usemap="#animalmap" alt="Animal Tarot">
+
+    <map name="animalmap">
+        <area shape="rect" coords="0,0,256,512" alt="사자" onclick="showResult('lion')">
+        <area shape="rect" coords="256,0,512,512" alt="올빼미" onclick="showResult('owl')">
+        <area shape="rect" coords="512,0,768,512" alt="문어" onclick="showResult('octopus')">
+        <area shape="rect" coords="768,0,1024,512" alt="독수리" onclick="showResult('eagle')">
+        <area shape="rect" coords="1024,0,1280,512" alt="돌고래" onclick="showResult('dolphin')">
+    </map>
+
+    <div id="result">
+        <h2>동물을 선택하세요!</h2>
+        <p>각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.</p>
+    </div>
+
+    <script>
+        function showResult(animal) {
+            let title = '';
+            let description = '';
+            
+            switch (animal) {
+                case 'lion':
+                    title = '사자 - 결단력';
+                    description = '사자는 강력하고 신속한 결단력을 가진 동물입니다. 위협적인 상황에서도 즉시 결정을 내리고 행동에 옮깁니다.';
+                    break;
+                case 'owl':
+                    title = '올빼미 - 객관성';
+                    description = '올빼미는 상황을 냉정하게 관찰하며, 객관적인 판단을 내리는 능력을 가진 동물입니다.';
+                    break;
+                case 'octopus':
+                    title = '문어 - 적응력';
+                    description = '문어는 변화하는 환경에 빠르게 적응하고, 다양한 기술적 문제를 해결할 수 있는 능력을 지닌 동물입니다.';
+                    break;
+                case 'eagle':
+                    title = '독수리 - 분석력';
+                    description = '독수리는 뛰어난 시력과 관찰력으로 넓은 범위를 분석하고, 세밀한 상황을 정확하게 파악하는 능력을 가진 동물입니다.';
+                    break;
+                case 'dolphin':
+                    title = '돌고래 - 공감력';
+                    description = '돌고래는 높은 감성으로 다른 동물의 감정을 이해하고 공감하는 능력을 가진 동물입니다.';
+                    break;
+                default:
+                    title = '동물을 선택하세요!';
+                    description = '각 동물을 클릭하면 해당하는 설명이 이곳에 나타납니다.';
+                    break;
+            }
+
+            document.getElementById('result').innerHTML = `<h2>${title}</h2><p>${description}</p>`;
+        }
+    </script>
+
+</body>
+</html>
